@@ -324,89 +324,92 @@ export default function JobsPage() {
                   const config =
                     statusConfig[job.status] ?? statusConfig.wishlist;
                   return (
-                    <div className="relative h-full">
-                      {/* Status glow top border */}
-                      <div
-                        className="absolute top-0 left-6 right-6 h-px rounded-full opacity-60"
-                        style={{
-                          background: `linear-gradient(90deg, transparent, ${
-                            job.status === "wishlist"
-                              ? "#3b82f6"
-                              : job.status === "applied"
-                                ? "#06b6d4"
-                                : job.status === "interview"
-                                  ? "#eab308"
-                                  : job.status === "offer"
-                                    ? "#22c55e"
-                                    : "#ef4444"
-                          }, transparent)`,
-                        }}
-                      />
-
-                      {/* Header */}
-                      <div className="flex items-start justify-between mb-4">
+                    <div className="relative h-full flex flex-col">
+                      {/* Make whole card clickable */}
+                      <Link href={`/jobs/${job.id}`} className="flex-1 block">
+                        {/* Status glow top border */}
                         <div
-                          className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm text-white"
+                          className="absolute top-0 left-6 right-6 h-px rounded-full opacity-60"
                           style={{
-                            background:
-                              "linear-gradient(135deg, #1e293b, #334155)",
+                            background: `linear-gradient(90deg, transparent, ${
+                              job.status === "wishlist"
+                                ? "#3b82f6"
+                                : job.status === "applied"
+                                  ? "#06b6d4"
+                                  : job.status === "interview"
+                                    ? "#eab308"
+                                    : job.status === "offer"
+                                      ? "#22c55e"
+                                      : "#ef4444"
+                            }, transparent)`,
                           }}
-                        >
-                          {job.company_name[0].toUpperCase()}
+                        />
+
+                        {/* Header */}
+                        <div className="flex items-start justify-between mb-4">
+                          <div
+                            className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm text-white"
+                            style={{
+                              background:
+                                "linear-gradient(135deg, #1e293b, #334155)",
+                            }}
+                          >
+                            {job.company_name[0].toUpperCase()}
+                          </div>
+                          <span
+                            className={`text-xs font-semibold px-2.5 py-1 rounded-lg border ${config.bg} ${config.border} ${config.color}`}
+                          >
+                            {config.label}
+                          </span>
                         </div>
-                        <span
-                          className={`text-xs font-semibold px-2.5 py-1 rounded-lg border ${config.bg} ${config.border} ${config.color}`}
-                        >
-                          {config.label}
-                        </span>
-                      </div>
 
-                      {/* Content */}
-                      <h3 className="font-bold text-white text-base mb-1 group-hover:text-blue-300 transition-colors">
-                        {job.job_title}
-                      </h3>
-                      <p className="text-gray-400 text-sm mb-4">
-                        {job.company_name}
-                      </p>
+                        {/* Content */}
+                        <h3 className="font-bold text-white text-base mb-1 group-hover:text-blue-300 transition-colors">
+                          {job.job_title}
+                        </h3>
+                        <p className="text-gray-400 text-sm mb-4">
+                          {job.company_name}
+                        </p>
 
-                      {/* Meta */}
-                      <div className="space-y-1.5 mb-4">
-                        {job.location && (
-                          <div className="flex items-center gap-2 text-xs text-gray-500">
-                            <MapPin className="w-3 h-3" />
-                            {job.location}
-                          </div>
-                        )}
-                        {job.salary && (
-                          <div className="flex items-center gap-2 text-xs text-gray-500">
-                            <DollarSign className="w-3 h-3" />$
-                            {job.salary.toLocaleString()}
-                          </div>
-                        )}
-                        {job.applied_date && (
-                          <div className="flex items-center gap-2 text-xs text-gray-500">
-                            <Calendar className="w-3 h-3" />
-                            {new Date(job.applied_date).toLocaleDateString()}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Tags */}
-                      {job.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mb-4">
-                          {job.tags.map((tag) => (
-                            <span
-                              key={tag.id}
-                              className="text-xs px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-gray-400"
-                            >
-                              {tag.name}
-                            </span>
-                          ))}
+                        {/* Meta */}
+                        <div className="space-y-1.5 mb-4">
+                          {job.location && (
+                            <div className="flex items-center gap-2 text-xs text-gray-500">
+                              <MapPin className="w-3 h-3" />
+                              {job.location}
+                            </div>
+                          )}
+                          {job.salary && (
+                            <div className="flex items-center gap-2 text-xs text-gray-500">
+                              <DollarSign className="w-3 h-3" />$
+                              {job.salary.toLocaleString()}
+                            </div>
+                          )}
+                          {job.applied_date && (
+                            <div className="flex items-center gap-2 text-xs text-gray-500">
+                              <Calendar className="w-3 h-3" />
+                              {new Date(job.applied_date).toLocaleDateString()}
+                            </div>
+                          )}
                         </div>
-                      )}
 
-                      {/* Actions */}
-                      <div className="flex items-center gap-2 pt-3 border-t border-white/5">
+                        {/* Tags */}
+                        {job.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 mb-4">
+                            {job.tags.map((tag) => (
+                              <span
+                                key={tag.id}
+                                className="text-xs px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-gray-400"
+                              >
+                                {tag.name}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </Link>
+
+                      {/* Actions — outside Link so they don't trigger navigation */}
+                      <div className="flex items-center gap-2 pt-3 border-t border-white/5 mt-auto">
                         <Link href={`/jobs/${job.id}`} className="flex-1">
                           <motion.button
                             whileTap={{ scale: 0.97 }}
@@ -432,7 +435,10 @@ export default function JobsPage() {
                         )}
                         <motion.button
                           whileTap={{ scale: 0.97 }}
-                          onClick={() => deleteMutation.mutate(job.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteMutation.mutate(job.id);
+                          }}
                           className="p-2 rounded-lg bg-white/5 hover:bg-red-500/10 border border-white/10 hover:border-red-500/30 text-gray-400 hover:text-red-400 transition-all duration-200"
                         >
                           <Trash2 className="w-3 h-3" />

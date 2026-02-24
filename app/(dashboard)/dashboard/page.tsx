@@ -15,6 +15,7 @@ import {
   Plus,
 } from "lucide-react";
 import Link from "next/link";
+import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 
 interface DashboardData {
   total_applications: number;
@@ -113,6 +114,7 @@ export default function DashboardPage() {
       animate="visible"
       className="space-y-6"
     >
+      <AnimatedBackground />
       {/* Header */}
       <motion.div
         variants={itemVariants}
